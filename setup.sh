@@ -38,3 +38,17 @@ reload() {
     sudo exportfs -ra
     sudo service nfs-kernel-server reload
 }
+
+if [ "$1" == "--setup" ]; then
+    setup
+
+elif [ "$1" == "--add" ]; then
+    addclient $2 $3 $4
+
+else
+    echo "--setup"
+    echo "      Will install the nfs server on this machine"
+    echo "--add <devicename> <ipaddress> <subnetmask>"
+    echo "      Will add the device using the given information"
+    echo "      Example: --add PC17 192.168.0.217 24"
+    echo "          for PC17 available under 192.168.0.217/24"
