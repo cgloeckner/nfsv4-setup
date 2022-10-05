@@ -27,7 +27,7 @@ addclient() {
 
     # setup share
     FSTAB_LINE="${MNT_ROOT}/$1 ${SRV_ROOT}/$1    none    bind    0   0"
-    EXPORTS_LINE="${SRV_ROOT}/$1  $4/$3(rw,sync,root_squash,no_subtree_check,fsid=0)"
+    EXPORTS_LINE="${SRV_ROOT}/$1  $2/$3(rw,sync,root_squash,no_subtree_check,fsid=0)"
 
     cp client.sh /tmp/client.sh
     echo "setup $1 $4" >> /tmp/client.sh
