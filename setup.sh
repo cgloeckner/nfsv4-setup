@@ -5,8 +5,8 @@ SRV_ROOT="/srv/nfsv4"
 MNT_ROOT="/home/lehrer/Schreibtisch/Austausch"
 FSTAB_PATH="/etc/fstab"
 EXPORTS_PATH="/etc/exports"
-REMOVE_USER="schueler"
-REMOVE_PWD="secret123"
+REMOTE_USER="schueler"
+REMOTE_PWD="secret123"
 
 setup() {
     # install nfs server
