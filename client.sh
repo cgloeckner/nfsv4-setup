@@ -9,6 +9,8 @@ FSTAB_PATH="/etc/fstab"
 setup() {
     sudo apt-get install nfs-common
 
+    # setup share
     FSTAB_LINE="$2:${SRV_ROOT}/$1   ${MNT_ROOT} nfs defaults    0   0"
     echo ${FSTAB_LINE} | sudo tee -a ${FSTAB_PATH}
+    sudo mount ${MNT_ROOT}
 }
