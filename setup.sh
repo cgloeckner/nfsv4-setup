@@ -28,16 +28,15 @@ addclient() {
     # setup share
     FSTAB_LINE="${MNT_ROOT}/$1 ${SRV_ROOT}/$1    none    bind    0   0"
     EXPORTS_LINE="${SRV_ROOT}/$1  $4/$3(rw,sync,root_squash,no_subtree_check,fsid=0)"
-    RUN_SCRIPT="/tmp/client.sh $1 $4"
-    
+
     echo "${FSTAB_LINE}" | sudo tee -a ${FSTAB_PATH}
     echo "${EXPORTS_LINE}" | sudo tee -a ${EXPORTS_PATH}
 
     scp client.sh ${REMOTE_USER}@$2:/tmp/client.sh
-    ssh ${REMOTE_USER}@$2 "${RUN_SCRIPT}$"
+    ssh ${REMOTE_USER}@$2 sudo sh < /tmp/client.sh $1 $4
 }
 
-reload() {   
+reload() {
     sudo exportfs -ra
     sudo service nfs-kernel-server reload
 }
