@@ -33,7 +33,7 @@ addclient() {
     echo "${EXPORTS_LINE}" | sudo tee -a ${EXPORTS_PATH}
 
     scp client.sh ${REMOTE_USER}@$2:/tmp/client.sh
-    ssh -tt ${REMOTE_USER}@$2 sudo /bin/bash < /tmp/client.sh $1 $4
+    ssh -tt ${REMOTE_USER}@$2 'sudo /bin/bash < /tmp/client.sh $1 $4'
 }
 
 reload() {
