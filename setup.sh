@@ -52,3 +52,4 @@ else
     echo "      Will add the device using the given information"
     echo "      Example: --add PC17 192.168.0.217 24"
     echo "          for PC17 available under 192.168.0.217/24"
+fi
