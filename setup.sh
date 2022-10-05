@@ -33,8 +33,8 @@ addclient() {
     sudo echo "${FSTAB_LINE}" | sudo tee -a ${FSTAB_PATH}
     sudo echo "${EXPORTS_LINE}" | sudo tee -a ${EXPORTS_PATH}
 
-    sshpass -p "${REMOTE_PASS}" scp client.sh ${REMOTE_USER}@$2:/tmp/client.sh
-    sshpass -p "${REMOTE_PASS}" ssh ${REMOTE_USER}@$2 "/tmp/client.sh $1 $4"
+    sshpass -p "${REMOTE_PWD}" scp client.sh ${REMOTE_USER}@$2:/tmp/client.sh
+    sshpass -p "${REMOTE_PWD}" ssh ${REMOTE_USER}@$2 "/tmp/client.sh $1 $4"
 }
 
 reload() {   
