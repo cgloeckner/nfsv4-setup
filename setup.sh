@@ -30,8 +30,8 @@ addclient() {
     FSTAB_LINE="${MNT_ROOT}/$1 ${SRV_ROOT}/$1    none    bind    0   0"
     EXPORTS_LINE="${SRV_ROOT}/$1  $4/$3(rw,sync,root_squash,no_subtree_check,fsid=0)"
     
-    sudo echo ${FSTAB_LINE} >> ${FSTAB_PATH}
-    sudo echo ${EXPORTS_LINE} >> ${EXPORTS_PATH}
+    sudo echo "${FSTAB_LINE}" >> ${FSTAB_PATH}
+    sudo echo "${EXPORTS_LINE}" >> ${EXPORTS_PATH}
 
     sshpass -p "${REMOTE_PASS}" scp client.sh ${REMOTE_USER}@$2:/tmp/client.sh
     sshpass -p "${REMOTE_PASS}" ssh ${REMOTE_USER}@$2 "/tmp/client.sh $1 $4"
