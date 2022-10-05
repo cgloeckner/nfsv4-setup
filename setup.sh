@@ -20,6 +20,7 @@ setup() {
 # $1: client name (e.g. S12)
 # $2: client IP (e.g. 192.168.0.212)
 # $3: client subnet mask (e.g. 24 for <ip>/24)
+# $4: server IP (e.g. 192.168.0.200)
 addclient() {
     # prepare client's directory
     sudo mkdir ${SRV_ROOT}/$1
@@ -27,13 +28,13 @@ addclient() {
 
     # setup share
     FSTAB_LINE="${MNT_ROOT}/$1 ${SRV_ROOT}/$1    none    bind    0   0"
-    EXPORTS_LINE="${SRV_ROOT}/$1  $2/$3(rw,sync,root_squash,no_subtree_check,fsid=0)"
+    EXPORTS_LINE="${SRV_ROOT}/$1  $4/$3(rw,sync,root_squash,no_subtree_check,fsid=0)"
     
     sudo echo ${FSTAB_LINE} >> ${FSTAB_PATH}
     sudo echo ${EXPORTS_LINE} >> ${EXPORTS_PATH}
 
-    scp client.sh $2:/tmp/client.sh
-    ssh $2 "/tmp/client.sh $1 $2"
+    sshpass -p "${REMOTE_PASS}" scp client.sh ${REMOTE_USER}@$2:/tmp/client.sh
+    sshpass -p "${REMOTE_PASS}" ssh ${REMOTE_USER}@$2 "/tmp/client.sh $1 $4"
 }
 
 reload() {   
@@ -45,13 +46,13 @@ if [ "$1" == "--setup" ]; then
     setup
 
 elif [ "$1" == "--add" ]; then
-    addclient $2 $3 $4
+    addclient $2 $3 $4 $5
 
 else
     echo "--setup"
     echo "      Will install the nfs server on this machine"
     echo "--add <devicename> <ipaddress> <subnetmask>"
     echo "      Will add the device using the given information"
-    echo "      Example: --add PC17 192.168.0.217 24"
-    echo "          for PC17 available under 192.168.0.217/24"
+    echo "      Example: --add PC17 192.168.0.217 24 192.168.0.200"
+    echo "          for PC17 available under 192.168.0.217/24 for the server 192.168.0.200"
 fi
