@@ -29,11 +29,14 @@ addclient() {
     FSTAB_LINE="${MNT_ROOT}/$1 ${SRV_ROOT}/$1    none    bind    0   0"
     EXPORTS_LINE="${SRV_ROOT}/$1  $4/$3(rw,sync,root_squash,no_subtree_check,fsid=0)"
 
+    cp client.sh /tmp/client.sh
+    echo "setup $1 $4" >> /tmp/client.sh
+
     echo "${FSTAB_LINE}" | sudo tee -a ${FSTAB_PATH}
     echo "${EXPORTS_LINE}" | sudo tee -a ${EXPORTS_PATH}
 
-    scp client.sh ${REMOTE_USER}@$2:/tmp/client.sh
-    ssh -tt ${REMOTE_USER}@$2 'sudo /bin/bash < /tmp/client.sh $1 $4'
+    scp /tmp/client.sh ${REMOTE_USER}@$2:/tmp/client.sh
+    ssh -tt ${REMOTE_USER}@$2 'sudo /bin/bash < /tmp/client.sh'
 }
 
 reload() {
@@ -47,6 +50,9 @@ if [ "$1" == "--setup" ]; then
 elif [ "$1" == "--add" ]; then
     addclient $2 $3 $4 $5
 
+elif [ "$1" == "--reload" ]; then
+    reload
+
 else
     echo "--setup"
     echo "      Will install the nfs server on this machine"
@@ -54,4 +60,6 @@ else
     echo "      Will add the device using the given information"
     echo "      Example: --add PC17 192.168.0.217 24 192.168.0.200"
     echo "          for PC17 available under 192.168.0.217/24 for the server 192.168.0.200"
+    echo "--reload"
+    echo "      Will reload NFS server after setup and adding clients"
 fi

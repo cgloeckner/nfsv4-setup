@@ -12,5 +12,3 @@ setup() {
     FSTAB_LINE="$2:${SRV_ROOT}/$1   ${MNT_ROOT} nfs defaults    0   0"
     echo ${FSTAB_LINE} | sudo tee -a ${FSTAB_PATH}
 }
-
-setup $1 $2
