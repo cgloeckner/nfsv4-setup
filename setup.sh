@@ -39,19 +39,11 @@ addclient() {
     ssh -tt ${REMOTE_USER}@$2 'sudo /bin/bash < /tmp/client.sh'
 }
 
-reload() {
-    sudo exportfs -ra
-    sudo service nfs-kernel-server reload
-}
-
 if [ "$1" == "--setup" ]; then
     setup
 
 elif [ "$1" == "--add" ]; then
     addclient $2 $3 $4 $5
-
-elif [ "$1" == "--reload" ]; then
-    reload
 
 else
     echo "--setup"
@@ -60,6 +52,4 @@ else
     echo "      Will add the device using the given information"
     echo "      Example: --add PC17 192.168.0.217 24 192.168.0.200"
     echo "          for PC17 available under 192.168.0.217/24 for the server 192.168.0.200"
-    echo "--reload"
-    echo "      Will reload NFS server after setup and adding clients"
 fi
