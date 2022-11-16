@@ -57,7 +57,7 @@ elif [ "$1" == "--reload" ]; then
 else
     echo "--setup"
     echo "      Will install the nfs server on this machine"
-    echo "--add <devicename> <ipaddress> <subnetmask>"
+    echo "--add <devicename> <ipaddress> <subnetmask> <serverip>"
     echo "      Will add the device using the given information"
     echo "      Example: --add PC17 192.168.0.217 24 192.168.0.200"
     echo "          for PC17 available under 192.168.0.217/24 for the server 192.168.0.200"
