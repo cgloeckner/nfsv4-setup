@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SRV_ROOT="/srv/nfsv4"
-MNT_ROOT="/home/schueler/Austausch"
+MNT_ROOT="/home/schueler/Schreibtisch/Austausch"
 FSTAB_PATH="/etc/fstab"
 
 # $1: client name (e.g. S12)
